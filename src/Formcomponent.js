@@ -1,70 +1,89 @@
-import "./App.css";
-import * as React from 'react';
-import { useState } from "react";
-import { AppBar, InputAdornment, OutlinedInput, Box, Container, Typography, Grid, Button, Link } from '@mui/material';
-import {Table,TableBody,TableCell,TableContainer,TableHead, TableRow} from '@mui/material';
-import moment from 'moment'
+import React, { useState } from "react";
+import { Typography, OutlinedInput, Grid, Button, Link ,Container,Box,AppBar,InputAdornment} from "@mui/material";
+import moment from "moment";
+import  TableComponent from "./Tablecomponent";
 
-export default function FormPropsTextFields() {
 
+
+const FormComponent = ({ onContinue }) => {
+  const[first,setFirst]=useState(false);
+  const[last,setLast]=useState(true);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [dataStorage,setDataStorage]= useState([]);
-  const[isValidEmail, setIsValidEmail]= useState(false);
-  const[isValidPassword, setIsValidPassword]= useState(false);
-  const [serialNumber, setSerialNumber] = useState(1);
-
+  const [isValidEmail, setIsValidEmail] = useState(false);
+  const [isValidPassword, setIsValidPassword] = useState(false);
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
- 
- const Data = [];
-const  handleEmailChange = (e) => {
-    setEmail( e.target.value)
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
     setIsValidEmail(!emailRegex.test(email.trim()));
-}
- 
-const  handlePasswordChange = (e) => {
-  setPassword(e.target.value)
-  setIsValidPassword(!passwordRegex.test(password.trim()));
+  };
 
-}
-const  handleFirstNameChange = (e) => {
-  setFirstName(e.target.value)
-}
-const  handleLastNameChange = (e) => {
-  setLastName(e.target.value)
-}
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setIsValidPassword(!passwordRegex.test(password.trim()));
+  };
 
-const handleClick = (e) => {
-  const addData = { 
-    serialno: serialNumber,
-    email:email,
-   password:password , 
-   firstname: firstName,
-    lastName:lastName ,
-    createddate:moment().format("MM/DD/YYYY"),
-    createdtime:moment().format("MM/DD/YYYY")
-    }; 
-    // console.log(addData);
-      setDataStorage([...dataStorage,addData]);
-      setEmail('');
-      
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
+  };
 
-  }
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+  };
+
+  const handleClick = () => {
+    setFirst(false);
+    setLast(true);
+
+    const addData = {
+      email: email,
+      password: password,
+      firstname: firstName,
+      lastName: lastName,
+      createddate: moment().format("MM/DD/YYYY"),
+      createdtime: moment().format("MM/DD/YYYY"),
+    };
+    onContinue(addData);
+    setEmail("");
+    setPassword("");
+    setFirstName("");
+    setLastName("");
+  };
+  const handleShow = () => {
+    setFirst(true);
+    setLast(false);
+
+    // const addData = {
+    //   email: email,
+    //   password: password,
+    //   firstname: firstName,
+    //   lastName: lastName,
+    //   createddate: moment().format("MM/DD/YYYY"),
+    //   createdtime: moment().format("MM/DD/YYYY"),
+    // };
+    // onContinue(addData);
+    // setEmail("");
+    // setPassword("");
+    // setFirstName("");
+    // setLastName("");
+  };
+
   return (
-    <>
-    <Box >
-      <AppBar position='static' sx={{ backgroundColor: '#3C3C3B', padding:4 }}></AppBar>
+    
+    <Grid container spacing={2} alignItems="center">
+  <Box >
+      {/* <AppBar position='static' sx={{ backgroundColor: '#3C3C3B', padding:4 }}></AppBar> */}
       
-
+      {first &&(
       <Box sx={{ backgroundColor: '#E4E7ED', paddingTop: 3, paddingBottom:1, overflow: 'auto' }} >
         <Container >
           <Grid container rowGap={2} columnGap={2} >
-            <Grid item xs={12} lg={7} sm={6} maxHeight="lg" sx={{ backgroundColor: '#E4E7ED' }}>
+            <Grid item xs={12} lg={10} sm={6} maxHeight="lg" sx={{ backgroundColor: '#E4E7ED' }}>
               <Grid container sx={{ borderRadius: '16px', backgroundColor: '#ffffff', padding: 2 }}>
 
                 <Grid item xs={12} mb={1} >
@@ -95,9 +114,8 @@ const handleClick = (e) => {
                   <Grid item sm={6} xs={12}>
                     <Typography>Password*</Typography>
                     <OutlinedInput error={isValidPassword}
-          id="outlined-error-helper-text"
-          helperText="Enter the strong password."
-                    
+                     id="outlined-error-helper-text"
+                     helperText="Enter the strong password."
                     onChange={handlePasswordChange}  name="password"  placeholder='Password' sx={{outline: 'none', width: '100%',border:'none',borderColor:'white', borderRadius: 4, backgroundColor: '#E4E7ED' }}
                       endAdornment={<InputAdornment position="end" sx={{ color:'#3C3C3B', textDecoration: 'underline', }}>show</InputAdornment>}
                     />
@@ -150,39 +168,29 @@ const handleClick = (e) => {
         </Container>
         {/* <AppBar position='static' sx={{ backgroundColor: '#3C3C3B', padding:2, marginTop:2 }}></AppBar> */}
       </Box>
-    </Box>
-         <TableContainer>
-                    <Table>
-                      <TableHead>
-                      <TableRow>
-            <TableCell align="center">SerialNo</TableCell>
-            <TableCell align="center">Firstname</TableCell>
-            <TableCell align="center">Lastname</TableCell>
-            <TableCell align="center">Email</TableCell>
-            <TableCell align="center">Password</TableCell>
-            <TableCell align="center">CreatedDate</TableCell>
-            <TableCell align="center">CreatedTime</TableCell>
-          </TableRow>
-          </TableHead>
-          <TableBody>
-            {dataStorage.map((data) => (  
-             <TableRow>
-             <TableCell align="center">{data.serialno}</TableCell>              
-
-              <TableCell align="center">{data.firstname}</TableCell>              
-             <TableCell align="center">{data.lastName}</TableCell>
-              <TableCell align="center">{data.email}</TableCell>
-              <TableCell align="center">{data.password}</TableCell>
-              <TableCell align="center">{data.createddate}</TableCell>
-              <TableCell align="center">{data.createdtime}</TableCell>
-            </TableRow>
-            ))}
-        </TableBody>
-  
-                       
-                        </Table>
-                    </TableContainer>
-                    </>
-
+      )}
+    </Box> 
+    {last &&(   
+    <Button
+        onClick={handleShow}
+        variant="contained"
+        disableElevation
+        sx={{
+          backgroundColor: "#EC6611",
+          textTransform: "none",
+          "&:hover": {
+            background: "#EC6611",
+            textTransform: "none",
+          },
+          height: 45,
+          width: 196,
+        }}
+      >
+        <Typography>Continue</Typography>
+      </Button>
+    )}
+    </Grid>
   );
-                      }
+};
+
+export default FormComponent;
