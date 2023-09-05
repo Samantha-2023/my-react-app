@@ -1,0 +1,55 @@
+ table {
+    border-color: #6d25f4;
+    font-family: arial, sans-serif;
+    /* width: 80%; */
+     /* border:  3px; */
+     /* box-sizing: border-box; */
+     border: 1px solid rgb(100, 32, 218); 
+     /* background-image:url("../assets/images/woodimage.jpg") ; */
+     background-color: black;
+    }
+  
+   .heading{
+    text-align: center;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 60px;
+    padding-bottom: 0%;
+    /* background-image:url("../assets/images/woodimage.jpg") ; */
+    background-color: black;
+
+  }
+  .addbutton{
+   align-items: center;   
+   color:white;
+    background-color: purple;
+    margin-left: 15px;
+    border-color: gray;
+    width : 90px;
+    height: 50px;
+    font-weight: bold;
+  }
+
+   td, th {
+    border: 1px solid #a48b8b;
+    text-align: left;
+    padding: 8px;
+  }
+  
+    tr:nth-child(even) {
+      background-color: #e6b1b1;
+    }
+  .tabledesign{
+    /* background-color: rgb(225, 225, 56); */
+    /* background-image:url("../assets/images/woodimage.jpg") ; */
+
+    /* border-color: #650707; */
+    color:white;
+    background-color: black;
+  }
+
+  /* rgb(225, 225, 56);
+  goldenrod
+  rgb(175, 175, 5); */

@@ -1,0 +1,25 @@
+card{
+    /* overflow-x: auto; */
+    /* margin-left: 3px; */
+
+}
+Card.Body{
+
+    overflow-x: auto;
+
+
+}
+.edit-icon{
+    color:blue;
+}
+
+.delete-icon{
+    color: red;
+}
+
+.show-icon{
+    color:green
+}
+.bread{
+    align-items:end;
+}
